@@ -44,7 +44,10 @@ onMounted(() => {
 
 <template>
   <div class="asset-list-container">
-    <h1>My Stuff</h1>
+    <header>
+      <h1>My Stuff</h1>
+      <button>Add New Asset</button>
+    </header>
     <div v-if="assets.length === 0" class="loading-message">
       <p>Loading assets...</p>
     </div>

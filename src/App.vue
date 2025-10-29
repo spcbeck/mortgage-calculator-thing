@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AssetList from './components/AssetList.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -8,13 +8,19 @@ import AssetList from './components/AssetList.vue'
       <h1>abstract value generation machine</h1>
     </header>
     <section>
-      <h1>the main numbers, new numbers, they just came out</h1>
-      <h2>
+      <h3>the main numbers, new numbers, they just came out</h3>
+      <p>
         the money we're getting each month
         <smaller>because we deserve it due to the market</smaller>
-      </h2>
+      </p>
     </section>
-    <AssetList />
+    <nav>
+      <ul>
+        <li><RouterLink to="/assets">Current Assets</RouterLink></li>
+        <li><RouterLink to="/assets/add">Add Asset</RouterLink></li>
+      </ul>
+    </nav>
+    <RouterView />
   </main>
 </template>
 
