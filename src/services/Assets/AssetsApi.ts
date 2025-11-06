@@ -20,7 +20,7 @@ export function getAllAssets(): Asset[] {
   const jsonAssets = assetsData.map(asset => ({
     ...asset,
     purchaseDate: new Date(asset.purchaseDate),
-  })) as Asset[];
+  })) as unknown as Asset[];
 
   const storedAssets = getStoredAssets();
 
