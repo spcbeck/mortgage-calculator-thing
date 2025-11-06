@@ -1,32 +1,34 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import MainHeader from './components/MainHeader.vue'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
 </script>
 
 <template>
-  <main>
-    <header>
-      <h1>abstract value generation machine</h1>
-    </header>
-    <section>
-      <h3>the main numbers, new numbers, they just came out</h3>
-      <p>
-        the money we're getting each month
-        <smaller>because we deserve it due to the market</smaller>
-      </p>
-    </section>
-    <nav>
-      <ul>
-        <li><RouterLink to="/assets">Current Assets</RouterLink></li>
-        <li><RouterLink to="/assets/add">Add Asset</RouterLink></li>
-      </ul>
-    </nav>
+  <main class="mortage-calculator-thing container-fluid">
+    <MainHeader />
     <RouterView />
+
+    <footer class="footer-main">
+      <p>&copy;2025 abstract value generation machine - made in Boston with ambivalence</p>
+    </footer>
   </main>
 </template>
-
 <style>
-li {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+
+.mortage-calculator-thing {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: auto;
+  padding: 1rem;
+}
+
+.footer-main {
+  text-align: center;
+  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
 }
 </style>
