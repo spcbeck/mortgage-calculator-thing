@@ -15,7 +15,7 @@ export interface Asset {
 }
 
 export interface AssetWithLoan extends Asset {
-  loanLength: 15 | 30
+  loanLength: 15 | 30 | number
   interestRate: number
   downPayment: number
   monthlyPayment: number
