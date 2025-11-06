@@ -4,6 +4,7 @@ import type {
   LongTermRentalAssetWithLoan,
 } from '../models/Asset'
 import type { HomoEconomicus } from '@/models/HomoEconomicus';
+import { computed } from 'vue'
 
 const props = defineProps<{
   asset: ShortTermRentalAssetWithLoan | LongTermRentalAssetWithLoan
@@ -14,6 +15,12 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD'
 })
+
+const totalProfit = computed(() => ({
+  rentalIncome: 0, // Replace with actual calculation
+  taxableRentalIncome: 0, // Replace with actual calculation
+  marginalTaxOnRental: 0 // Replace with actual calculation
+}))
 
 </script>
 

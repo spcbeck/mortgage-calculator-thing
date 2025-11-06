@@ -3,14 +3,12 @@ import AssetList from '@/components/AssetList.vue';
 import { getAllAssets } from '@/services/Assets/AssetsApi'
 import { ref, onMounted } from 'vue'
 import type {
-  Asset,
-  AssetWithLoan,
   ShortTermRentalAssetWithLoan,
   LongTermRentalAssetWithLoan,
 } from '../models/Asset'
 
 const assets = ref<
-  (Asset | AssetWithLoan | ShortTermRentalAssetWithLoan | LongTermRentalAssetWithLoan)[]
+  (ShortTermRentalAssetWithLoan | LongTermRentalAssetWithLoan)[]
 >([])
 
 // Fetch assets from both assets.json and localStorage
@@ -35,7 +33,7 @@ const fetchAssets = () => {
         ...asset,
         purchaseDate,
         ...(maturityDate && { maturityDate }),
-      }
+      } as ShortTermRentalAssetWithLoan | LongTermRentalAssetWithLoan
     })
   }, 500) // Reduced delay since we're not hitting an API
 }

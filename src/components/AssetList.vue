@@ -22,7 +22,7 @@ defineProps<{
 
 // Get owner for an asset, with fallback to first owner if index is out of bounds
 function getOwner(index: number): HomoEconomicus {
-  return owners[index] ?? owners[0]
+  return owners[index] ?? owners[0]!
 }
 
 </script>

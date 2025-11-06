@@ -75,8 +75,9 @@ export async function updateAsset(id: string, updates: Partial<Asset>): Promise<
     throw new Error(`Asset with id ${id} not found in localStorage`);
   }
 
-  storedAssets[index] = { ...storedAssets[index], ...updates };
+  const updatedAsset = { ...storedAssets[index], ...updates } as Asset;
+  storedAssets[index] = updatedAsset;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(storedAssets));
 
-  return storedAssets[index];
+  return updatedAsset;
 }

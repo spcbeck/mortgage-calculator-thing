@@ -8,7 +8,7 @@ defineProps<{
 }>()
 
 //should be passsed down as a prop from app.vue
-const owner = [
+const owners = [
   {
     name: "Anna",
     salary: 140000,
@@ -28,9 +28,9 @@ const owner = [
       <p>Loading people...</p>
     </div>
     <div v-else class="asset-list">
-      <template v-for="(owner, index) in owner" :key="owner.name">
+      <template v-for="(owner, index) in owners" :key="owner.name">
         <h2>{{ owner.name }}</h2>
-        <PeopleCardSimple :asset="assets[index]" :owner="owner" />
+        <PeopleCardSimple v-if="assets[index]" :asset="assets[index]" :owner="owner" />
         <hr v-if="index < assets.length - 1" class="asset-divider" />
       </template>
     </div>

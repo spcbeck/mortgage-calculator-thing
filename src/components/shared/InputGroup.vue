@@ -14,7 +14,7 @@ const emit = defineEmits(['update:modelValue'])
   <div class="input-group">
     <!-- I don't love the way I handled alignment here -->
     <span v-if="props.iconAlignment && props.iconAlignment ==='left'" class="input-group-text">{{ props.icon }}</span>
-    <input type="number" :class="['form-control']" :id="props.id" :name="props.id" :value="props.modelValue" @input="emit('update:modelValue', $event.target.value)" />
+    <input type="number" :class="['form-control']" :id="props.id" :name="props.id" :value="props.modelValue" @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)" />
     <span v-if="props.iconAlignment && props.iconAlignment ==='right'" class="input-group-text">{{ props.icon }}</span>
   </div>
 </template>

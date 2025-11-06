@@ -31,16 +31,19 @@ watch([home_value, downpayment, loan_amount], () => {
 
 
 async function handleSubmit() {
-  const response = await getMortgageDetails({
-    home_value: home_value.value,
-    downpayment: downpayment.value,
+  const baseParams = {
     interest_rate: interest_rate.value,
-    ...((!(home_value.value && downpayment.value) && loan_amount.value) && { loan_amount: loan_amount.value }),
     duration_years: loan_term.value,
     annual_property_tax: property_tax.value,
     annual_home_insurance: home_insurance.value,
     monthly_hoa: hoa_fees.value,
-  });
+  };
+
+  const mortgageParams = useLoanAmountMethod.value
+    ? { ...baseParams, loan_amount: loan_amount.value }
+    : { ...baseParams, home_value: home_value.value, downpayment: downpayment.value };
+
+  const response = await getMortgageDetails(mortgageParams);
 
   estimatedMonthlyPayment.value = response.monthly_payment.total;
 
