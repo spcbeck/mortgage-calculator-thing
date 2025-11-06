@@ -1,58 +1,42 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import type {
-  Asset,
-  AssetWithLoan,
-  ShortTermRentalAssetWithLoan,
-  LongTermRentalAssetWithLoan,
-} from '../models/Asset'
-import AssetCard from './AssetCard.vue'
-import assetsData from '../assets.json'
+import type { HomoEconomicus } from '@/models/HomoEconomicus';
+import AssetCardSimple from './AssetCardSimple.vue'
+import type { LongTermRentalAssetWithLoan, ShortTermRentalAssetWithLoan } from '@/models/Asset'
 
-const assets = ref<
-  (Asset | AssetWithLoan | ShortTermRentalAssetWithLoan | LongTermRentalAssetWithLoan)[]
->([])
+const owners = [
+  {
+    name: "Anna",
+    salary: 140000,
+    value: Infinity,
+  },
+  {
+    name: "Seanna",
+    salary: 170000,
+    value: Infinity,
+  }
+] as HomoEconomicus[];
 
-// This function simulates fetching data from an API.
-const fetchAssets = () => {
-  // In a real application, you would make an API call here.
-  // For demonstration, we'll use a timeout to simulate a network request.
-  setTimeout(() => {
-    assets.value = assetsData.map((asset) => {
-      const purchaseDate = new Date(asset.purchaseDate)
+defineProps<{
+  assets: Array<LongTermRentalAssetWithLoan | ShortTermRentalAssetWithLoan>
+}>()
 
-      // Calculate maturity date based on purchase date and loan length
-      let maturityDate: Date | undefined
-      if ('loanLength' in asset && asset.loanLength) {
-        maturityDate = new Date(purchaseDate)
-        maturityDate.setFullYear(purchaseDate.getFullYear() + asset.loanLength)
-      }
-
-      return {
-        ...asset,
-        purchaseDate,
-        ...(maturityDate && { maturityDate }),
-      }
-    })
-  }, 1500) // Simulate a 1.5 second delay
+// Get owner for an asset, with fallback to first owner if index is out of bounds
+function getOwner(index: number): HomoEconomicus {
+  return owners[index] ?? owners[0]
 }
 
-onMounted(() => {
-  fetchAssets()
-})
 </script>
 
 <template>
   <div class="asset-list-container">
-    <header>
-      <h1>My Stuff</h1>
-      <button>Add New Asset</button>
-    </header>
     <div v-if="assets.length === 0" class="loading-message">
       <p>Loading assets...</p>
     </div>
     <div v-else class="asset-list">
-      <AssetCard v-for="asset in assets" :key="asset.id" :asset="asset" />
+      <template v-for="(asset, index) in assets" :key="asset.id">
+        <AssetCardSimple :asset="asset" :owner="getOwner(index)" />
+        <hr v-if="index < assets.length - 1" class="asset-divider" />
+      </template>
     </div>
   </div>
 </template>
@@ -60,9 +44,9 @@ onMounted(() => {
 <style scoped>
 .asset-list-container {
   font-family: sans-serif;
-  max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
+  width: 100%;
 }
 
 .loading-message {
@@ -78,13 +62,13 @@ onMounted(() => {
   border-radius: 0.5rem;
   font-family: 'Helvetica Neue', 'Arial', sans-serif;
   color: #565656;
-  box-shadow: 0 4px 0.5rem rgba(0, 0, 0, 0.1);
   margin: auto;
 }
 
-@media (min-width: 768px) {
-  .asset-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.asset-divider {
+  grid-column: 1 / -1;
+  border: none;
+  border-top: 2px solid #e0e0e0;
+  margin: 0.5rem 0;
 }
 </style>
