@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "run-p type-check \"build-only {@}\" --",
+    "build:prod": "vite build",
     "preview": "vite preview --host",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
