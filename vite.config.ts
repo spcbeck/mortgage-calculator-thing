@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/', // Ensure base path is root for DigitalOcean static sites
   plugins: [
     vue(),
     vueDevTools(),
